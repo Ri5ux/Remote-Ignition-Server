@@ -1,0 +1,27 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+mainClassName = 'com.asx.ris.ServiceWrapper'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.google.guava:guava:28.0-jre'
+  compile files('lib\\rxtx-comm.jar');
+  compile files('lib\\bluecove.jar');
+  compile 'com.google.code.gson:gson:2.8.5'
+}
+
+jar {
+  manifest {
+    attributes(
+      "Class-Path": configurations.compile.collect { "lib\\" + it.getName() }.join(' '),
+      'Main-Class': application.mainClassName
+    )
+  }
+}
